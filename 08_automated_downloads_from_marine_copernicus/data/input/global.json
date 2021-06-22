@@ -1,0 +1,8 @@
+{
+    "service":"GLOBAL_ANALYSIS_FORECAST_PHY_001_024-TDS",
+    "product":"global-analysis-forecast-phy-001-024",
+    "long_min":-180,
+    "long_max":179.91,
+    "lat_min":-80,
+    "lat_max":90
+}

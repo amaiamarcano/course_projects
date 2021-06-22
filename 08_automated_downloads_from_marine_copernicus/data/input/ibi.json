@@ -1,0 +1,8 @@
+{
+    "service":"IBI_ANALYSISFORECAST_PHY_005_001-TDS",
+    "product":"cmems_mod_ibi_phy_anfc_0.027deg-3D_P1D-m",
+    "long_min":-19,
+    "long_max":5,
+    "lat_min":26,
+    "lat_max":56
+}
