@@ -77,7 +77,7 @@ def downloadcmems(data={}):
         t += datetime.timedelta(days=1)
 
         # running the command
-        p = subprocess.Popen("qsub "+command, shell=True)
+        p = subprocess.Popen(f"qsub -q all.q "+command, shell=True)
         # p.wait()
 
     return ("done :-)")
