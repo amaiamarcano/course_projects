@@ -1,11 +1,6 @@
 import subprocess
 import datetime
-import os
 import json
-
-from dotenv import load_dotenv
-load_dotenv()
-
 
 def downloadcmems(data={}):
 
