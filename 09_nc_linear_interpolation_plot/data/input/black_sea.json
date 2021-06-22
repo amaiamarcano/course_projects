@@ -1,0 +1,8 @@
+{
+    "service"="BLKSEA_ANALYSISFORECAST_PHY_007_001-TDS",
+    "product"="bs-cmcc-cur-an-fc-d",
+    "long_min"=-27.25,
+    "long_max"=42,
+    "lat_min"=-40.5,
+    "lat_max"=47
+}
