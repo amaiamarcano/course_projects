@@ -1,6 +1,7 @@
 import subprocess
 import datetime
 import os
+import json
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -15,25 +16,27 @@ def downloadcmems(data={}):
 
     if data.get("product") == None:
         data["product"] = "global-analysis-forecast-phy-001-024"
-    
+
     if data.get("date_min") == None:
         data["date_min"] = datetime.datetime.now().strftime("%Y-%m-%d")
-    
+
     if data.get("number_of_days") == None:
         data["number_of_days"] = 1
 
     if data.get("long_min") == None:
         data["long_min"] = -15
-    
+
     if data.get("lat_min") == None:
         data["lat_min"] = 30
-    
+
     if data.get("long_max") == None:
         data["long_max"] = 20
-    
+
     if data.get("lat_max") == None:
         data["lat_max"] = 60
-    
+
+    # extract cmems username & password
+    cmemskeys = json.load(open("../../../cmems.json", 'r'))
 
     # PARAMETERS:
     # service : service-id
@@ -67,12 +70,12 @@ def downloadcmems(data={}):
                 --latitude-max {data["lat_max"]} \
                 --date-min {string_t} \
                 --date-max {string_t} \
-                --depth-min 0.493 \
-                --depth-max 0.4942 \
+                --depth-min {data["depth_min"]} \
+                --depth-max {data["depth_max"]} \
                 --variable uo \
                 --variable vo \
-                --out-dir ./ --out-name cmems_{string_t}.nc \
-                --user {os.environ.get("username")} --pwd {os.environ.get("password")}
+                --out-dir ./ --out-name ./data/output/{data["service"]}.nc \
+                --user {cmemskeys["username"]} --pwd {cmemskeys["password"]}
         """
 
         # preparing next iteration

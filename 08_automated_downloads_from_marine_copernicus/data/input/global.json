@@ -4,5 +4,7 @@
     "long_min":-180,
     "long_max":179.91,
     "lat_min":-80,
-    "lat_max":90
+    "lat_max":90,
+    "depth_min":0.493,
+    "depth_max":0.4942
 }
