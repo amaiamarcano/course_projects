@@ -1,8 +1,3 @@
-unfinished: not properly sending the jobs to the nodes yet
-
-
-###############################################################################
-
 1) download data:
 IBI
 Global

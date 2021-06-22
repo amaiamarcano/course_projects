@@ -69,7 +69,7 @@ def downloadcmems(data={}):
                 --depth-max {data["depth_max"]} \
                 --variable uo \
                 --variable vo \
-                --out-dir ./ --out-name ./data/output/{data["service"]}.nc \
+                --out-dir ./ --out-name ./data/output/{string_t}_{data["service"]}.nc \
                 --user {cmemskeys["username"]} --pwd {cmemskeys["password"]}
         """
 
@@ -77,7 +77,7 @@ def downloadcmems(data={}):
         t += datetime.timedelta(days=1)
 
         # running the command
-        p = subprocess.Popen(command, shell=True)
-        p.wait()
+        p = subprocess.Popen("qsub "+command, shell=True)
+        # p.wait()
 
     return ("done :-)")

@@ -1,6 +1,7 @@
 import glob
 import json
 from downloadcmems import *
+import subprocess
 
 # recover the json files
 # extract the info from the jsons
@@ -17,5 +18,4 @@ for each_file in json_files_paths:
     # extract json information
     data = json.load(open(each_file, 'r'))
 
-    # send the job to the nodes
     downloadcmems(data)
