@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # run the script
-env/bin/python ./src/extract_data.py
+${1}/env/bin/python ${1}/src/extract_data.py;

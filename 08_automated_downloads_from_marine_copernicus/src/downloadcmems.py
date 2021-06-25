@@ -54,8 +54,8 @@ def downloadcmems(data={}):
         # we'll need t's string version for the command
         string_t = t.strftime("%Y-%m-%d")
 
-        command = f"""
-        env/bin/python -m motuclient \
+        command = rf"""
+        ./env/bin/python -m motuclient \
                 --motu https://nrt.cmems-du.eu/motu-web/Motu \
                 --service-id {data["service"]} \
                 --product-id {data["product"]} \
@@ -69,7 +69,7 @@ def downloadcmems(data={}):
                 --depth-max {data["depth_max"]} \
                 --variable uo \
                 --variable vo \
-                --out-dir ./ --out-name ./data/output/{string_t}_{data["service"]}.nc \
+                --out-dir ./data/output --out-name {string_t}_{data["service"]}.nc \
                 --user {cmemskeys["username"]} --pwd {cmemskeys["password"]}
         """
 
@@ -77,7 +77,7 @@ def downloadcmems(data={}):
         t += datetime.timedelta(days=1)
 
         # running the command
-        p = subprocess.Popen(f"qsub -q all.q "+command, shell=True)
-        # p.wait()
+        p = subprocess.Popen(command, shell=True)
+        p.wait()
 
     return ("done :-)")
