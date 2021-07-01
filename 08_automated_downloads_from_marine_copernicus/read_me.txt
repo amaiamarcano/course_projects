@@ -1,3 +1,7 @@
+the workflow is broken because the nodes can't use env/bin/python.
+
+-------------------------------------------------------------------------------
+
 1) download data:
 IBI
 Global

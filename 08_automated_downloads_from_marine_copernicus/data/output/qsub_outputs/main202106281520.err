@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "../../src/extract_data.py", line 3, in <module>
+    from downloadcmems import *
+  File "/LUSTRE/users/amarcano/cluster/course_projects/08_automated_downloads_from_marine_copernicus/src/downloadcmems.py", line 74
+    """
+      ^
+SyntaxError: invalid syntax

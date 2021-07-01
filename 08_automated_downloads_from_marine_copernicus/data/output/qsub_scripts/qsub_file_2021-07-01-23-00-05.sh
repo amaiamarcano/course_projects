@@ -1,0 +1,3 @@
+
+	#!/bin/bash 	./env/bin/python -m motuclient 	--motu https://nrt.cmems-du.eu/motu-web/Motu 	--service-id GLOBAL_ANALYSIS_FORECAST_PHY_001_024-TDS 	--product-id global-analysis-forecast-phy-001-024 	--longitude-min -15 	--longitude-max 20 	--latitude-min 30 	--latitude-max 60 	--date-min 2021-07-01 	--date-max 2021-07-01 	--depth-min 00 	--depth-max 00 	--variable uo 	--variable vo 	--out-dir ../../data/output --out-name 2021-07-01_GLOBAL_ANALYSIS_FORECAST_PHY_001_024-TDS.nc 	--user ${1} --pwd ${2}
+	

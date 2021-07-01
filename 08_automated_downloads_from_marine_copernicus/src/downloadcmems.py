@@ -54,30 +54,44 @@ def downloadcmems(data={}):
         # we'll need t's string version for the command
         string_t = t.strftime("%Y-%m-%d")
 
-        command = rf"""
-        ./env/bin/python -m motuclient \
-                --motu https://nrt.cmems-du.eu/motu-web/Motu \
-                --service-id {data["service"]} \
-                --product-id {data["product"]} \
-                --longitude-min {data["long_min"]} \
-                --longitude-max {data["long_max"]} \
-                --latitude-min {data["lat_min"]} \
-                --latitude-max {data["lat_max"]} \
-                --date-min {string_t} \
-                --date-max {string_t} \
-                --depth-min {data["depth_min"]} \
-                --depth-max {data["depth_max"]} \
-                --variable uo \
-                --variable vo \
-                --out-dir ./data/output --out-name {string_t}_{data["service"]}.nc \
-                --user {cmemskeys["username"]} --pwd {cmemskeys["password"]}
+        # write the command in a bash file
+        time_expansion = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        qsub_file_name = f"qsub_file_{time_expansion}"
+        qsub_file_path = f"data/output/qsub_scripts/{qsub_file_name}.sh"
+        qsub_file = open(qsub_file_path,"w")
+
+        arg1,arg2,arg3 = "${1}","${2}","${PWD}"
+
+        qsub_script = f"""#!/bin/bash\n{arg3}/env/bin/python -m motuclient \
+        --motu https://nrt.cmems-du.eu/motu-web/Motu \
+        --service-id {data["service"]} \
+        --product-id {data["product"]} \
+        --longitude-min {data["long_min"]} \
+        --longitude-max {data["long_max"]} \
+        --latitude-min {data["lat_min"]} \
+        --latitude-max {data["lat_max"]} \
+        --date-min {string_t} \
+        --date-max {string_t} \
+        --depth-min {data["depth_min"]} \
+        --depth-max {data["depth_max"]} \
+        --variable uo \
+        --variable vo \
+        --out-dir ./data/output --out-name {string_t}_{data["service"]}.nc \
+        --user {arg1} --pwd {arg2}
         """
+
+        command = f"""qsub -cwd -q all.q -o ./data/output/qsub_outputs/{qsub_file_name}.out -e ./data/output/qsub_outputs/{qsub_file_name}.err ./{qsub_file_path} {cmemskeys["username"]} {cmemskeys["password"]}"""
+
+        qsub_file.write(qsub_script)
+
+        qsub_file.close()
+
+        # running the command: send the bash file to the nodes
+        # TO DO
+        p = subprocess.Popen(command, shell=True)
+        # p.wait()
 
         # preparing next iteration
         t += datetime.timedelta(days=1)
-
-        # running the command
-        p = subprocess.Popen(command, shell=True)
-        p.wait()
 
     return ("done :-)")

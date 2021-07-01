@@ -1,0 +1,3 @@
+#!/bin/bash
+./env/bin/python -m motuclient         --motu https://nrt.cmems-du.eu/motu-web/Motu         --service-id BLKSEA_ANALYSISFORECAST_PHY_007_001-TDS         --product-id bs-cmcc-cur-an-fc-d         --longitude-min 27.25         --longitude-max 42         --latitude-min 40.5         --latitude-max 47         --date-min 2021-07-01         --date-max 2021-07-01         --depth-min 0.5002         --depth-max 0.5002         --variable uo         --variable vo         --out-dir ./data/output --out-name 2021-07-01_BLKSEA_ANALYSISFORECAST_PHY_007_001-TDS.nc         --user ${1} --pwd ${2}
+        
