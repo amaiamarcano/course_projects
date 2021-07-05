@@ -61,10 +61,19 @@ def downloadcmems(data={}):
         string_t = t.strftime("%Y-%m-%d")
 
         # write the command in a bash file
+
+        # =====================================================================
+        # =====================================================================
+        # =====================================================================
+
+        # SCRIPT TO DOWNLOAD THE FILES LOCALLY
+
+        # =====================================================================
+
         time_expansion = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        arg1,arg2,arg3 = "${1}","${2}","${PWD}"
         qsub_file_name = f"qsub_file_{time_expansion}"
         qsub_file_path = f"data/output/qsub_scripts/{qsub_file_name}.sh"
-        arg1,arg2,arg3 = "${1}","${2}","${PWD}"
 
         qsub_file = open(qsub_file_path,"w")
 
@@ -86,7 +95,7 @@ def downloadcmems(data={}):
         --user {arg1} --pwd {arg2}
         """
 
-        command = f"""./{qsub_file_path} {cmemskeys["username"]} {cmemskeys["password"]}"""
+        command = f"""chmod +x {qsub_file_path} ; {qsub_file_path} {cmemskeys["username"]} {cmemskeys["password"]}"""
         qsub_file.write(qsub_script)
         qsub_file.close()
 
@@ -104,10 +113,10 @@ def downloadcmems(data={}):
 
         # write the command in a bash file
         #time_expansion = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        #arg1,arg2,arg3 = "${1}","${2}","${PWD}"
         #qsub_file_name = f"qsub_file_{time_expansion}"
         #qsub_file_path = f"data/output/qsub_scripts/{qsub_file_name}.sh"
         #qsub_file = open(qsub_file_path,"w")
-        #arg1,arg2,arg3 = "${1}","${2}","${PWD}"
         #qsub_script = f"""#!/bin/bash\n{arg3}/env/bin/python -m motuclient \
         #--motu https://nrt.cmems-du.eu/motu-web/Motu \
         #--service-id {data["service"]} \
@@ -122,10 +131,10 @@ def downloadcmems(data={}):
         #--depth-max {data["depth_max"]} \
         #--variable uo \
         #--variable vo \
-        #--out-dir ./data/output --out-name {string_t}_{data["service"]}.nc \
+        #--out-dir {arg3}/data/output --out-name {string_t}_{data["service"]}.nc \
         #--user {arg1} --pwd {arg2}
         #"""
-        #command = f"""qsub -cwd -q all.q -o ./data/output/qsub_outputs/{qsub_file_name}.out -e ./data/output/qsub_outputs/{qsub_file_name}.err ./{qsub_file_path} {cmemskeys["username"]} {cmemskeys["password"]}"""
+        #command = f"""chmod +x ./{qsub_file_path} ; qsub -cwd -q all.q -o {arg3}/data/output/qsub_outputs/{qsub_file_name}.out -e {arg3}/data/output/qsub_outputs/{qsub_file_name}.err ./{qsub_file_path} {cmemskeys["username"]} {cmemskeys["password"]}"""
         #qsub_file.write(qsub_script)
         #qsub_file.close()
 
@@ -135,7 +144,7 @@ def downloadcmems(data={}):
 
         # running the command: download the file
         p = subprocess.Popen(command, shell=True)
-        # p.wait()
+        p.wait()
 
         # preparing next iteration
         t += datetime.timedelta(days=1)

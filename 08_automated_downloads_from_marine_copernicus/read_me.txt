@@ -1,4 +1,4 @@
-the workflow is broken because the nodes can't use env/bin/python.
+the workflow breaks when the nodes try using env/bin/python, so it's not qsubbed.
 
 -------------------------------------------------------------------------------
 
