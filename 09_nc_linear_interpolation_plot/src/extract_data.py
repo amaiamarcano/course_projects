@@ -5,8 +5,7 @@ import subprocess
 
 # recover the json files
 # extract the info from the jsons
-# send to the nodes the job "download the data" related to each json
-# -> the qsub is inside the downloadcmems function
+# download the data related to each json
 
 json_files_paths = []
 
